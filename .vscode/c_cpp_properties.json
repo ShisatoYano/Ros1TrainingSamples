@@ -8,7 +8,6 @@
       "includePath": [
         "/opt/ros/melodic/include/**",
         "/home/shisato/workspace/catkin_ws/src/Ros1TrainingSamples/include/**",
-        "/home/shisato/workspace/catkin_ws/src/basic_lecture/include/**",
         "/usr/include/**"
       ],
       "name": "ROS"
