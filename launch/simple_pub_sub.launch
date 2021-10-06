@@ -1,0 +1,4 @@
+<launch>
+  <node name="simple_publisher" pkg="Ros1TrainingSamples" type="simple_publisher" output="screen"/>
+  <node name="simple_subscriber" pkg="Ros1TrainingSamples" type="simple_subscriber" output="screen"/>
+</launch>
