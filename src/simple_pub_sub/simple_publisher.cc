@@ -1,6 +1,24 @@
+/**
+ * @file simple_publisher.cc
+ * @author Shisato Yano
+ * @brief ROS1 publisher node sample
+ * @version 0.1
+ * @date 2021-10-07
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 
+/**
+ * @brief Publisher main process
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "simple_publisher");
@@ -11,7 +29,7 @@ int main(int argc, char** argv)
   while (ros::ok())
   {
     std_msgs::String msg;
-    msg.data = "hello world!!";
+    msg.data = "Hello world!!";
     ROS_INFO("publish: %s", msg.data.c_str());
     chatter_pub.publish(msg);
 
