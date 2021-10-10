@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   tf
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -48,11 +49,17 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  MsgSample.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
+## Generate added messages and services with any dependencies listed here
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -66,12 +73,6 @@ find_package(catkin REQUIRED COMPONENTS
 #   FILES
 #   Action1.action
 #   Action2.action
-# )
-
-## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
 # )
 
 ################################################
@@ -105,8 +106,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES Ros1TrainingSamples
-#  CATKIN_DEPENDS roscpp rospy std_msgs tf
+LIBRARIES Ros1TrainingSamples
+CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
 
@@ -135,7 +136,16 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(simple_publisher src/simple_pub_sub/simple_publisher.cc)
+target_link_libraries(simple_publisher ${catkin_LIBRARIES})
 add_executable(simple_subscriber src/simple_pub_sub/simple_subscriber.cc)
+target_link_libraries(simple_subscriber ${catkin_LIBRARIES})
+
+add_executable(message_publisher src/message_sample/message_publisher.cc)
+add_dependencies(message_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(message_publisher ${catkin_LIBRARIES})
+add_executable(message_subscriber src/message_sample/message_subscriber.cc)
+add_dependencies(message_subscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(message_subscriber ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,14 +156,6 @@ add_executable(simple_subscriber src/simple_pub_sub/simple_subscriber.cc)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Specify libraries to link a library or executable target against
-target_link_libraries(simple_publisher
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(simple_subscriber
-  ${catkin_LIBRARIES}
-)
 
 #############
 ## Install ##
