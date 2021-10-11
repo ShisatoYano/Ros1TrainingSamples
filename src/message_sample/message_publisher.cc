@@ -13,7 +13,7 @@
 #include "Ros1TrainingSamples/MsgSample.h"
 
 /**
- * @brief main process
+ * @brief Main process
  * 
  * @param argc 
  * @param argv 
