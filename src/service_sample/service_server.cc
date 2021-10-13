@@ -33,7 +33,26 @@ bool calculate(Ros1TrainingSamples::SrvSample::Request &req,
   return true;
 }
 
+/**
+ * @brief main process
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv)
 {
+  ros::init(argc, argv, "service_server"); // initialize node
+
+  ros::NodeHandle nh; // declare node handle to communicate with ros system
+
+  // declare service server
+  // execute calculate function when received request from client
+  ros::ServiceServer sample_service_server = nh.advertiseService("sample_srv", calculate);
+
+  ROS_INFO("ready srv server!");
+
+  ros::spin(); // wait for request
+
   return 0;
 }
