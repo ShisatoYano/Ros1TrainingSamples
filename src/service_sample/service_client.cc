@@ -34,6 +34,29 @@ int main(int argc, char **argv)
   ros::NodeHandle nh; // declare node handle to communicate with ros system
 
   // declare service client
+  ros::ServiceClient sample_service_client = nh.serviceClient<Ros1TrainingSamples::SrvSample>("sample_srv");
+
+  // declare srv object
+  Ros1TrainingSamples::SrvSample srv;
+
+  // set input value by keyboard to service request message
+  srv.request.a = atoll(argv[1]);
+  srv.request.b = atoll(argv[2]);
+
+  // request service
+  // when request was accepted, output returned response value
+  if (sample_service_client.call(srv))
+  {
+    ROS_INFO("send srv, srv.Request.a and b: %ld, %ld",
+             (long int)srv.request.a, (long int)srv.request.b);
+    ROS_INFO("receive srv, srv.Response.result: %ld",
+             (long int)srv.response.result);
+  }
+  else
+  {
+    ROS_ERROR("Failed to call service sample_srv");
+    return 1;
+  }
 
   return 0;
 }
