@@ -60,6 +60,7 @@ add_message_files(
 add_service_files(
   FILES
   SrvSample.srv
+  ParamSample.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -158,6 +159,13 @@ target_link_libraries(action_server ${catkin_LIBRARIES})
 add_executable(action_client src/action_sample/action_client.cc)
 add_dependencies(action_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(action_client ${catkin_LIBRARIES})
+
+add_executable(service_param_server src/parameter_sample/service_param_server.cc)
+add_dependencies(service_param_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(service_param_server ${catkin_LIBRARIES})
+add_executable(service_param_client src/parameter_sample/service_param_client.cc)
+add_dependencies(service_param_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(service_param_client ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
